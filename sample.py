@@ -65,7 +65,11 @@ def sample_level(screenX):
 
     # !!!!!creating map
 
-    game_map = load_map(map_path / "bungs_map")
+    file = open("assets/map_path", "r")
+    fi = file.readlines()
+    file.close()
+
+    game_map = load_map(fi[0])
 
     # !!!!! loading objects
 

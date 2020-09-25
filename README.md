@@ -10,7 +10,7 @@ Team Bung for Pyweek 30 competition
 git clone # your repo
 
 python --version
-# 3.8.x 
+# Python 3.8.x
 python -m install pipenv
 
 cd pyweek30

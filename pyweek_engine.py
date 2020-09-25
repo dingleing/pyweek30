@@ -5,6 +5,7 @@ import random
 import math
 import copy
 from pygame.locals import *
+import itertools
 
 pygame.init()
 
@@ -15,7 +16,6 @@ class Game:
         self.alive = True
         # fs = fullscreen
         self.fs = False
-        self.custom_id_giver = 0
 
         self.game_maps = None
         # checks if there are any maps if there are puts them in self.game_maps
@@ -260,8 +260,10 @@ class Moving_Object:
 
 
 class Object(Collisions):
-    def __init__(self, typeX, object_id, x_y, movement, direction, moving, size):
-        super().__init__(typeX, object_id, x_y, movement, direction, moving, size)
+    counter_iter = itertools.count()
+    def __init__(self, typeX, x_y, movement, direction, moving, size):
+        self.obj_id = next(self.counter_iter)
+        super().__init__(typeX, self.obj_id, x_y, movement, direction, moving, size)
 
     def __str__(self):
         return self.type
@@ -394,13 +396,11 @@ def load_objects(game_map, width, height, objects, game):
         for obj in line:
             # this is just to be efficient normaly u can use elif and put another obj to another num
             if obj in ["1", "2", "3", "4", "5"]:
-                obj = Object("solid", game.custom_id_giver, [x, y], [0, 0], 0, False, [width, height])
+                obj = Object("solid",  [x, y], [0, 0], 0, False, [width, height])
                 sort(obj, objects)
-                game.custom_id_giver += 1
             elif obj == "6":
-                obj = Object("collectable", game.custom_id_giver, [x, y], [0, 0], 0, False, [width, height])
+                obj = Object("collectable", [x, y], [0, 0], 0, False, [width, height])
                 sort(obj, objects)
-                game.custom_id_giver += 1
             x += width
         y += height
         x = 0

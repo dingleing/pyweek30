@@ -1,10 +1,13 @@
 import pygame
 from intro import *
+from cave_level import *
 from pygame.locals import *
 
 pygame.mixer.pre_init(48000, -16, 2, 512)
 pygame.init()
 pygame.mixer.set_num_channels(16)
+
+fs = False
 
 screen_width = 800
 screen_height = 600
@@ -52,6 +55,7 @@ def menulogic():
             end = 1
 
 
+
 def dispmenu():
     global disy
     global menulen
@@ -97,6 +101,8 @@ def down():
 
 
 def hub():
+    global fs
+
     menuX = True
     while menuX:
 
@@ -105,13 +111,15 @@ def hub():
         file.close()
 
         if lines[0] == "intro":
-            menuX = intro(screen, display, Window_size, fs)
+            menuX, fs = intro(screen, display, Window_size, fs)
+        elif lines[0] == "cave_level":
+            menuX, fs = cave_level(screen, display, Window_size, fs)
         else:
             menuX = False
 
 
+
 dispmenu()
-fs = False
 while end == 0:
     for event in pygame.event.get():
         if event.type == QUIT:

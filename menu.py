@@ -1,6 +1,7 @@
 import pygame
 from intro import *
 from cave_level import *
+from alien_level import *
 from pygame.locals import *
 
 pygame.mixer.pre_init(48000, -16, 2, 512)
@@ -114,9 +115,13 @@ def hub():
             menuX, fs = intro(screen, display, Window_size, fs)
         elif lines[0] == "cave_level":
             menuX, fs = cave_level(screen, display, Window_size, fs)
+        elif lines[0] == "onto_the_forest":
+            print("it works")
+            break
+        elif lines[0] == "space_station":
+            menuX, fs = alien_level(screen, display, Window_size, fs)
         else:
             menuX = False
-
 
 
 dispmenu()

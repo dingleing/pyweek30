@@ -1,5 +1,6 @@
 from ray_cast import *
 from cave_level_engine import *
+from sounds import *
 
 import pygame
 from pygame.locals import *
@@ -16,6 +17,8 @@ def cave_level(screenX, display, Window_size, fs=False):
     pygame.mixer.set_num_channels(16)
 
     clock = pygame.time.Clock()
+
+    ss = Sounds()
 
     back_to_menu = False
 
@@ -83,6 +86,7 @@ def cave_level(screenX, display, Window_size, fs=False):
 
     # !!!!!game loop
 
+    ss.sounds["Opener"].play()
     while game.alive:
         # deleting objects
 

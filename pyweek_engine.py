@@ -127,6 +127,9 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+        elif self.type == "deadly":
+            if obj.type == "player":
+                objects.values["dead"] = True
 
     def hit_top(self, obj, objects):
         if self.type == "solid":
@@ -139,6 +142,9 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+        elif self.type == "deadly":
+            if obj.type == "player":
+                objects.values["dead"] = True
 
     def hit_left(self, obj, objects):
         if self.type == "solid":
@@ -151,6 +157,9 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+        elif self.type == "deadly":
+            if obj.type == "player":
+                objects.values["dead"] = True
 
     def hit_right(self, obj, objects):
         if self.type == "solid":
@@ -163,7 +172,9 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
-
+        elif self.type == "deadly":
+            if obj.type == "player":
+                objects.values["dead"] = True
 
 
 # used to create templates for ray caster
@@ -279,7 +290,7 @@ class Timers:
 
         # stuff under this is for separate functions
 
-        self.wall_images = load_images("assets/textures/animation1", "wall", 5)
+        self.lava_images = load_images("assets/textures/animation1", "lava", 8)
 
     @staticmethod
     def ray_timer_advance(timer, ray_dict):
@@ -290,8 +301,8 @@ class Timers:
     # with type of timer u decide what to use
     def add_timer(self, duration, repeat, type_of_timer):
 
-        if type_of_timer == "ray_wall_animation":
-            self.timers.append([Timer(duration, repeat, ["5", self.wall_images], type_of_timer),
+        if type_of_timer == "ray_lava_animation":
+            self.timers.append([Timer(duration, repeat, ["5", self.lava_images], type_of_timer),
                                 self.ray_timer_advance])
 
     # parameters passed into are for the funcs
@@ -300,7 +311,7 @@ class Timers:
             timer[0].step += 1
 
             if timer[0].step == timer[0].duration:
-                if timer[0].type == "ray_wall_animation":
+                if timer[0].type == "ray_lava_animation":
                     timer[1](timer[0], ray_dict)
 
                     if timer[0].repeat or timer[0].image_number != len(timer[0].extras[1]):
@@ -393,8 +404,12 @@ def load_objects(game_map, width, height, objects, game):
     for line in game_map:
         for obj in line:
             # this is just to be efficient normaly u can use elif and put another obj to another num
-            if obj in ["1", "2", "3", "4", "5", "7"]:
+            if obj in ["1", "2", "3", "4", "7"]:
                 obj = Object("solid", game.custom_id_giver, [x, y], [0, 0], 0, False, [width, height])
+                sort(obj, objects)
+                game.custom_id_giver += 1
+            elif obj == "5":
+                obj = Object("deadly", game.custom_id_giver, [x, y], [0, 0], 0, False, [width, height])
                 sort(obj, objects)
                 game.custom_id_giver += 1
             elif obj == "6":
@@ -415,7 +430,7 @@ def get_ray_dictionary():
         "2": Ray_cast_block(pygame.image.load("assets/textures/wall_cave.png")),
         "3": Ray_cast_block(),
         "4": Ray_cast_block(pygame.image.load("assets/textures/ship.png")),
-        "5": Ray_cast_block(pygame.image.load("assets/textures/animation1/wall0.png")),
+        "5": Ray_cast_block(pygame.image.load("assets/textures/animation1/lava0.png")),
         "6": Ray_cast_block(pygame.image.load("assets/textures/water.png")), 
         "7": Ray_cast_block(pygame.image.load("assets/textures/teleporter.png"))
         }

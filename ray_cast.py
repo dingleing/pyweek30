@@ -46,7 +46,7 @@ class Rays:
         self.limit = self.ray_render * 32
         self.ray_width = 3
         self.scaler = 40
-        self.solid = ["1", "2", "3", "5"]
+        self.solid = ["1", "2", "3", "5", "7"]
         self.transparent = ["4"]
 
     def better_distance(self, dist, angle_of_ray, angle_of_view):

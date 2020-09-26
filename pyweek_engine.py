@@ -393,7 +393,7 @@ def load_objects(game_map, width, height, objects, game):
     for line in game_map:
         for obj in line:
             # this is just to be efficient normaly u can use elif and put another obj to another num
-            if obj in ["1", "2", "3", "4", "5"]:
+            if obj in ["1", "2", "3", "4", "5", "7"]:
                 obj = Object("solid", game.custom_id_giver, [x, y], [0, 0], 0, False, [width, height])
                 sort(obj, objects)
                 game.custom_id_giver += 1
@@ -412,12 +412,13 @@ def get_ray_dictionary():
     blocks = {
         "0": Ray_cast_block(),
         "1": Ray_cast_block(pygame.image.load("assets/textures/Wall_Dirt.png")),
-        "2": Ray_cast_block(pygame.image.load("assets/textures/test_texture0.png")),
+        "2": Ray_cast_block(pygame.image.load("assets/textures/wall_cave.png")),
         "3": Ray_cast_block(),
-        "4": Ray_cast_block(pygame.image.load("assets/textures/test_transparent.png")),
+        "4": Ray_cast_block(pygame.image.load("assets/textures/ship.png")),
         "5": Ray_cast_block(pygame.image.load("assets/textures/animation1/wall0.png")),
-        "6": Ray_cast_block(pygame.image.load("assets/textures/water.png"))
-    }
+        "6": Ray_cast_block(pygame.image.load("assets/textures/water.png")), 
+        "7": Ray_cast_block(pygame.image.load("assets/textures/teleporter.png"))
+        }
     blocks["3"].color = (200, 30, 10)
     return blocks
 

@@ -49,7 +49,7 @@ class Planet:
 
     def move(self):
 
-        pygame.draw.circle(self.display, self.color, [self.cords[0], self.cords[1]],
+        pygame.draw.circle(self.display, self.color, [int(self.cords[0]), int(self.cords[1])],
                            int(self.cords[2]), int(self.cords[2]))
 
         self.cords[2] += 0.1 * self.speed
@@ -192,5 +192,5 @@ def intro(screenX, display, Window_size, fs=False):
 
     display.blit(game_management["loading"], [0, 0])
     if back_to_menu:
-        return False
-    return True
+        return False, fs
+    return True, fs

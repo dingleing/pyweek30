@@ -42,7 +42,7 @@ class Rays:
         self.three_halves_pi = round(3 * (math.pi / 2), 6)
         self.display = display
         # ray constants
-        self.ray_render = 30
+        self.ray_render = 50
         self.limit = self.ray_render * 32
         self.ray_width = 3
         self.scaler = 40

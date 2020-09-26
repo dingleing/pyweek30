@@ -30,15 +30,16 @@ pygame.display.set_caption("Circle sky")
 clock = pygame.time.Clock()
 
 
-
 def sample_level(screenX):
     # !!!!!creating objects to control game
+    loading = pygame.image.load("assets/textures/intro/loading.png").convert()
 
     game = Game()
     objects = Objects()
     
     objects.values["water"] = 0
     objects.values["add_water"] = False
+    objects.values["dead"] = False
     
     ids = Id()
 
@@ -47,7 +48,7 @@ def sample_level(screenX):
     # never set direction to 0
     Player = Object("player", game.custom_id_giver, [500, 500], [0, 0], 0.01, True, [8, 8])
     Player.move.collisions = True  # enables collisions for player
-    Player.move.speed = 5  # increasing speed so ur not super slow
+    Player.move.speed = 28  # increasing speed so ur not super slow
     Player.move.offset = 30  # were creating 120 rays with 0.5 angle difference and we need player offset 30 angles
     # don't try to understand the comment above its just 30 it just is
 
@@ -83,7 +84,7 @@ def sample_level(screenX):
     # timers for animations
 
     timer = Timers()
-    timer.add_timer(60, True, "ray_wall_animation")
+    timer.add_timer(40, True, "ray_lava_animation")
 
     # !!!!!game loop
 
@@ -140,8 +141,7 @@ def sample_level(screenX):
 
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    pass
-                    #game.alive = False
+                    game.alive = False
 
                 elif event.key == K_f:
                     # remember fs = fullscreen
@@ -171,6 +171,14 @@ def sample_level(screenX):
                     Player.move.forward = False
                 elif event.key == K_s:
                     Player.move.backwards = False
+
+        # checking if dead
+
+        if objects.values["dead"]:
+            display.blit(loading, [0, 0])
+            screenX.blit(pygame.transform.scale(display, Window_size), (0, 0))
+            pygame.display.update()
+            game.alive = False
 
         # basic loop config
 

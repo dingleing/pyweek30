@@ -2,6 +2,7 @@ import pygame
 import random
 import sys
 import math
+from sounds import *
 from pygame.locals import *
 
 
@@ -82,6 +83,7 @@ def intro(screenX, display, Window_size, fs=False):
 
     planets = Planet
     planets.create_planets(200, display)
+    ss = Sounds()
 
     speeder = 0.02
 
@@ -110,6 +112,11 @@ def intro(screenX, display, Window_size, fs=False):
         # planets
 
         planets.move_all()
+
+        if speeder == 0.05:
+            ss.sounds["EnginePickup"].play()
+        elif speeder == 2.2:
+            ss.sounds["explosion"].play()
 
         if speeder < 2:
             planets.planets.append(Planet(display,

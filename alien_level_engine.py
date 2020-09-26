@@ -4,7 +4,9 @@ import time
 import random
 import math
 import copy
+from sounds import *
 from pygame.locals import *
+ss = Sounds()
 
 pygame.init()
 
@@ -132,6 +134,7 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+                ss.sounds["Item-pickup"].play()
         elif self.type == "deadly":
             if obj.type == "player":
                 objects.values["dead"] = True
@@ -142,9 +145,11 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+                ss.sounds["Power_up"].play()
         elif self.type == "teleporter":
             if obj.type == "player":
                 objects.values["won"] = True
+                ss.sounds["Portal-transport"].play()
 
     def hit_top(self, obj, objects):
         if self.type == "solid":
@@ -157,6 +162,7 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+                ss.sounds["Item-pickup"].play()
         elif self.type == "deadly":
             if obj.type == "player":
                 objects.values["dead"] = True
@@ -167,9 +173,11 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+                ss.sounds["Power_up"].play()
         elif self.type == "teleporter":
             if obj.type == "player":
                 objects.values["won"] = True
+                ss.sounds["Portal-transport"].play()
 
     def hit_left(self, obj, objects):
         if self.type == "solid":
@@ -182,6 +190,7 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+                ss.sounds["Item-pickup"].play()
         elif self.type == "deadly":
             if obj.type == "player":
                 objects.values["dead"] = True
@@ -192,9 +201,11 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+                ss.sounds["Power_up"].play()
         elif self.type == "teleporter":
             if obj.type == "player":
                 objects.values["won"] = True
+                ss.sounds["Portal-transport"].play()
 
     def hit_right(self, obj, objects):
         if self.type == "solid":
@@ -207,6 +218,7 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+                ss.sounds["Item-pickup"].play()
         elif self.type == "deadly":
             if obj.type == "player":
                 objects.values["dead"] = True
@@ -217,9 +229,11 @@ class Collisions(Id):
                 hit_pos = [int(self.object_pos[1] // 32), int(self.object_pos[0] // 32)]
                 objects.values["pos_to_del"].append(hit_pos)
                 objects.objects_to_delete.append(self.object_id)
+                ss.sounds["Power_up"].play()
         elif self.type == "teleporter":
             if obj.type == "player":
                 objects.values["won"] = True
+                ss.sounds["Portal-transport"].play()
 
 
 # used to create templates for ray caster

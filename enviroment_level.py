@@ -43,7 +43,7 @@ def enviroment_level(screenX, display, Window_size, fs=False):
     # never set direction to 0
     Player = Object("player", game.custom_id_giver, [200, 200], [0, 0], 0.01, True, [8, 8])
     Player.move.collisions = True  # enables collisions for player
-    Player.move.speed = 20  # increasing speed so ur not super slow
+    Player.move.speed = 8  # increasing speed so ur not super slow
     Player.move.angle_speed = Player.move.speed/160
     Player.move.offset = 30  # were creating 120 rays with 0.5 angle difference and we need player offset 30 angles
     # don't try to understand the comment above its just 30 it just is

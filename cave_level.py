@@ -107,10 +107,10 @@ def cave_level(screenX, display, Window_size, fs=False):
 
         # celling
 
-        pygame.draw.rect(display, (186, 154, 88), (0, 0, 600, 120))
-        pygame.draw.rect(display, (168, 136, 70), (0, 120, 600, 80))
-        pygame.draw.rect(display, (145, 117, 60), (0, 200, 600, 30))
-        pygame.draw.rect(display, (131, 106, 54), (0, 230, 600, 20))
+        pygame.draw.rect(display, (186, 154, 88), (0, -25, 600, 120))
+        pygame.draw.rect(display, (168, 136, 70), (0, 95, 600, 80))
+        pygame.draw.rect(display, (145, 117, 60), (0, 175, 600, 30))
+        pygame.draw.rect(display, (131, 106, 54), (0, 205, 600, 20))
 
         # doing player movement
 

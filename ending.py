@@ -2,6 +2,7 @@ import pygame
 import random
 import sys
 import math
+from sounds import *
 from pygame.locals import *
 
 
@@ -75,29 +76,29 @@ class Planet:
 
 
 def ending(screenX, display, Window_size, fs=False):
-
     clock = pygame.time.Clock()
 
     # gg
 
     planets = Planet
     planets.create_planets(200, display)
+    ss = Sounds()
 
     speeder = 0.02
 
     spaceship_before = pygame.image.load("assets/textures/end/spaceship.png").convert_alpha()
     spaceship_after = pygame.transform.rotate(spaceship_before, 45)
-    
+
     spaceship_rect = spaceship_after.get_rect()
-    new_width  = 200
+    new_width = 200
     new_height = new_width * spaceship_rect[3] / spaceship_rect[2]
     spaceship_after = pygame.transform.scale(spaceship_after, [new_width, int(new_height)])
-    
+
     game_management = {
-        "planet": pygame.image.load("assets/textures/intro/planet.png").convert() ,
+        "planet": pygame.image.load("assets/textures/intro/planet.png").convert(),
         "spaceship": spaceship_after,
         "spaceship_cords": [350, 200],
-        "spaceship_width" : 150,
+        "spaceship_width": 150,
         "loading": pygame.image.load("assets/textures/intro/loading.png").convert(),
         "word01": pygame.image.load("assets/textures/end/word_01.png").convert_alpha(),
         "word02": pygame.image.load("assets/textures/end/word_02.png").convert_alpha(),
@@ -109,8 +110,6 @@ def ending(screenX, display, Window_size, fs=False):
         "message_cords": [10, 50]
     }
 
-    back_to_menu = False
-
     alive = True
 
     while alive:
@@ -120,14 +119,17 @@ def ending(screenX, display, Window_size, fs=False):
         display.blit(game_management["spaceship"], game_management["spaceship_cords"])
         game_management["spaceship_cords"][0] -= 0.05
         game_management["spaceship_cords"][1] -= 0.025
-        
+
         #     # bonus stuff
+
+        if speeder == 0.02:
+            ss.sounds["EnginePickup"].play()
 
         if speeder < 0.3:
             planets.move_all()
             planets.planets.append(Planet(display,
-                            [random.randint(350, 450), random.randint(175, 275), random.randint(0, 10)],
-                            speeder))
+                                          [random.randint(350, 450), random.randint(175, 275), random.randint(0, 10)],
+                                          speeder))
             display.blit(game_management["word01"], game_management["message_cords"])
         elif speeder < 0.7:
             display.blit(game_management["word02"], game_management["message_cords"])
@@ -142,6 +144,13 @@ def ending(screenX, display, Window_size, fs=False):
         else:
             display.blit(game_management["word06"], game_management["message_cords"])
 
+        if speeder == 2.1:
+            display.blit(game_management["loading"], [0, 0])
+            file = open("assets/save.txt", "w")
+            file.write("intro")
+            file.close()
+            alive = False
+
         speeder += 0.001
         speeder = round(speeder, 3)
 
@@ -155,10 +164,6 @@ def ending(screenX, display, Window_size, fs=False):
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     display.blit(game_management["loading"], [0, 0])
-                    file = open("assets/save.txt", "w")
-                    file.write("intro")
-                    file.close()
-                    back_to_menu = True
                     alive = False
 
                 elif event.key == K_f:
@@ -176,6 +181,5 @@ def ending(screenX, display, Window_size, fs=False):
         clock.tick(60)
 
     display.blit(game_management["loading"], [0, 0])
-    if back_to_menu:
-        return False, fs
-    return True, fs
+
+    return False, fs

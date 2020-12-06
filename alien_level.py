@@ -125,6 +125,7 @@ def alien_level(screenX, display, Window_size, fs=False):
                         hit_pos = [int(obj.object_pos[1] // 32), int(obj.object_pos[0] // 32)]
                         objects.values["pos_to_del"].append(hit_pos)
                         objects.objects_to_delete.append(obj.object_id)
+                        ss.sounds["Door"].play()
 
         # collisions
 
